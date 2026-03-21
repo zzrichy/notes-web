@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light dark" />
-  <title>西安旅行总规划（Day1-Day6）</title>
+  <title>西安旅行总规划</title>
   <style>
     :root{
       --bg: #0b1220;
@@ -14,17 +14,10 @@
       --muted: rgba(255,255,255,0.70);
       --border: rgba(255,255,255,0.14);
       --shadow: 0 16px 60px rgba(0,0,0,0.35);
-      --accent: #7cdbff;
-      --accent2:#ffd37c;
-      --good: #62e6a8;
-      --warn: #ffb86b;
-      --bad: #ff6b6b;
-      --radius: 18px;
-      --radius2: 12px;
+      --radius: 16px;
       --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
     }
-
     @media (prefers-color-scheme: light){
       :root{
         --bg: #f4f6fb;
@@ -36,110 +29,72 @@
         --shadow: 0 16px 60px rgba(16,24,40,0.10);
       }
     }
-
     *{ box-sizing: border-box; }
-    html, body{ height: 100%; }
     body{
       margin: 0;
       font-family: var(--font);
       color: var(--text);
       background:
-        radial-gradient(1200px 800px at 15% 0%, rgba(124,219,255,0.22), transparent 55%),
-        radial-gradient(900px 700px at 80% 10%, rgba(255,211,124,0.18), transparent 50%),
-        radial-gradient(900px 700px at 50% 100%, rgba(98,230,168,0.10), transparent 55%),
+        radial-gradient(1000px 700px at 15% 0%, rgba(124,219,255,0.18), transparent 55%),
+        radial-gradient(800px 600px at 85% 10%, rgba(255,211,124,0.14), transparent 50%),
         var(--bg);
     }
-
     a{ color: inherit; }
     .wrap{
-      max-width: 1100px;
+      max-width: 640px;
       margin: 0 auto;
-      padding: 22px 16px 60px;
+      padding: 20px 16px 48px;
     }
-
     .topbar{
       display: flex;
-      gap: 12px;
+      flex-wrap: wrap;
       align-items: center;
-      justify-content: space-between;
-      padding: 14px 14px;
+      gap: 10px;
+      padding: 12px 14px;
       border: 1px solid var(--border);
       border-radius: var(--radius);
       background: var(--panel);
       box-shadow: var(--shadow);
       position: sticky;
-      top: 14px;
-      z-index: 30;
+      top: 12px;
+      z-index: 20;
       backdrop-filter: blur(10px);
     }
-    .brand{
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      min-width: 180px;
+    .topbar .title{
+      font-weight: 800;
+      font-size: 1rem;
+      flex: 1 1 auto;
+      min-width: 0;
     }
-    .brand .title{
-      font-weight: 850;
-      letter-spacing: 0.2px;
-      line-height: 1.1;
-    }
-    .brand .sub{
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.2;
-    }
-
-    .actions{
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+    .topbar select{
+      flex: 1 1 160px;
+      max-width: 220px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--panel2);
+      color: var(--text);
+      font-size: 13px;
     }
     .btn{
       appearance: none;
       border: 1px solid var(--border);
       background: var(--panel2);
       color: var(--text);
-      padding: 10px 12px;
+      padding: 8px 12px;
       border-radius: 999px;
       font-weight: 700;
-      font-size: 13px;
+      font-size: 12px;
       cursor: pointer;
-      transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
-      user-select: none;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      white-space: nowrap;
     }
-    .btn:hover{ transform: translateY(-1px); border-color: rgba(124,219,255,0.45); }
-    .btn:active{ transform: translateY(0px); }
-    .btn.primary{
-      border-color: rgba(124,219,255,0.55);
-      background: linear-gradient(135deg, rgba(124,219,255,0.22), rgba(124,219,255,0.08));
-    }
-    .btn.warn{
-      border-color: rgba(255,211,124,0.55);
-      background: linear-gradient(135deg, rgba(255,211,124,0.18), rgba(255,211,124,0.08));
-    }
-    .btn.ghost{
-      background: transparent;
-    }
-    .btn.small{
-      padding: 8px 10px;
-      font-size: 12px;
-    }
-
-    .grid{
-      margin-top: 14px;
-      display: grid;
-      grid-template-columns: 350px 1fr;
-      gap: 16px;
-      align-items: start;
-    }
+    .btn:active{ transform: translateY(1px); }
 
     .card{
+      margin-top: 14px;
       border: 1px solid var(--border);
       background: var(--panel);
       border-radius: var(--radius);
@@ -147,1166 +102,405 @@
       overflow: hidden;
     }
     .card .hd{
-      padding: 14px 14px 10px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      display:flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 10px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      font-weight: 800;
+      font-size: 15px;
     }
-    @media (prefers-color-scheme: light){
-      .card .hd{ border-bottom: 1px solid rgba(0,0,0,0.06); }
-    }
-    .card .hd .h{
-      font-weight: 900;
-      letter-spacing: 0.2px;
-    }
-    .card .bd{
-      padding: 14px 14px;
-    }
+    .card .bd{ padding: 14px 14px 16px; }
 
-    .dayList{
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      padding: 12px 12px 14px;
-    }
-    .dayChip{
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.05);
-      border-radius: var(--radius2);
-      padding: 12px 12px;
-      display: grid;
-      gap: 8px;
-    }
-    .dayChip.active{
-      border-color: rgba(124,219,255,0.6);
-      background: linear-gradient(135deg, rgba(124,219,255,0.18), rgba(255,255,255,0.04));
-    }
-    .dayMeta{
-      display:flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-    .dayMeta .left{
-      display:flex;
-      flex-direction: column;
-      gap: 3px;
-      min-width: 0;
-    }
-    .dayMeta .d{
-      font-weight: 950;
-      letter-spacing: 0.2px;
-      display:flex;
-      gap: 8px;
-      align-items: center;
-      min-width: 0;
-    }
-    .badge{
-      font-family: var(--mono);
-      font-size: 11px;
-      padding: 4px 8px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      color: var(--muted);
-      background: rgba(0,0,0,0.05);
-      white-space: nowrap;
-    }
-    @media (prefers-color-scheme: light){
-      .badge{ background: rgba(255,255,255,0.65); }
-    }
-    .dayMeta .hint{
-      color: var(--muted);
-      font-size: 12px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .pillRow{
-      display:flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .pill{
-      font-size: 12px;
-      color: var(--muted);
-      padding: 6px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.04);
-    }
-    @media (prefers-color-scheme: light){
-      .pill{ border: 1px solid rgba(0,0,0,0.10); background: rgba(255,255,255,0.55); }
-    }
-
-    .dayCardBody{
-      display:flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .selectRow{
-      display:none;
-    }
-
-    main .hero{
-      padding: 14px 14px;
-    }
-    .heroBox{
-      display:grid;
-      gap: 12px;
-      grid-template-columns: 1fr;
-    }
-    .heroTitle{
-      font-size: 26px;
-      font-weight: 950;
-      line-height: 1.1;
-      letter-spacing: 0.2px;
-      margin: 2px 0 0;
-    }
-    .heroSub{
-      color: var(--muted);
-      margin-top: 6px;
-      line-height: 1.6;
-      font-size: 14px;
-    }
-    .quickGrid{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 10px;
-    }
-    .quickItem{
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 10px 10px;
-      background: rgba(255,255,255,0.04);
-    }
-    .quickItem .k{
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
-    .quickItem .v{
-      font-weight: 850;
-      font-size: 13px;
-      line-height: 1.25;
-    }
-
-    .section{
-      margin-top: 16px;
-    }
-    .sectionAnchor{
-      scroll-margin-top: 110px;
-    }
-    .dayDetail{
-      padding: 14px 14px 6px;
-    }
-    .dayHeader{
-      display:flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      padding-bottom: 10px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    @media (prefers-color-scheme: light){
-      .dayHeader{ border-bottom: 1px solid rgba(0,0,0,0.06); }
-    }
-    .dayHeader .left{
-      display:flex;
-      flex-direction: column;
-      gap: 6px;
-      min-width: 0;
-    }
-    .dayHeader .h{
-      font-weight: 980;
-      font-size: 18px;
-      display:flex;
-      gap: 10px;
-      align-items: baseline;
-      flex-wrap: wrap;
-    }
-    .dayHeader .t{
-      color: var(--muted);
-      line-height: 1.5;
-      font-size: 13px;
-      max-width: 780px;
-    }
-
-    .timeline{
-      margin: 14px 0 12px;
+    .summary{
+      margin: 0;
       padding: 0;
       list-style: none;
       display: grid;
       gap: 10px;
     }
-    .tItem{
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.04);
-      border-radius: 14px;
-      padding: 12px 12px;
-      display:grid;
-      gap: 6px;
-    }
-    @media (prefers-color-scheme: light){
-      .tItem{ border: 1px solid rgba(0,0,0,0.10); background: rgba(255,255,255,0.55); }
-    }
-    .tTop{
-      display:flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .tTime{
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--muted);
-      white-space: nowrap;
-    }
-    .tTitle{
-      font-weight: 900;
-      font-size: 14px;
-    }
-    .tDesc{
-      color: var(--muted);
-      line-height: 1.65;
-      font-size: 13px;
-      margin-top: 2px;
-      white-space: pre-wrap;
-    }
-    .tagRow{
-      display:flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 4px;
-    }
-    .tag{
-      font-size: 12px;
-      padding: 6px 9px;
-      border-radius: 999px;
+    .summary li{
       border: 1px solid var(--border);
-      color: var(--muted);
+      border-radius: 12px;
+      padding: 10px 12px;
       background: rgba(255,255,255,0.03);
     }
-    .tag.good{ border-color: rgba(98,230,168,0.45); color: rgba(98,230,168,0.95); }
-    .tag.warn{ border-color: rgba(255,211,124,0.5); color: rgba(255,211,124,0.95); }
-    .tag.bad{ border-color: rgba(255,107,107,0.45); color: rgba(255,107,107,0.95); }
-
-    .split{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin: 10px 0 8px;
-    }
-    @media (max-width: 860px){
-      .grid{ grid-template-columns: 1fr; }
-      .quickGrid{ grid-template-columns: 1fr; }
-      .split{ grid-template-columns: 1fr; }
-      .topbar{ top: 10px; }
-    }
-
-    .mapBox{
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: rgba(255,255,255,0.04);
-      overflow: hidden;
-    }
-    .mapHd{
-      display:flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 12px 12px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
     @media (prefers-color-scheme: light){
-      .mapHd{ border-bottom: 1px solid rgba(0,0,0,0.06); }
+      .summary li{ background: rgba(255,255,255,0.55); }
     }
-    .mapHd .h{
-      font-weight: 900;
+    .summary a{
+      text-decoration: none;
+      font-weight: 650;
       font-size: 14px;
+      line-height: 1.45;
+      display: block;
     }
-    .mapBody{
-      padding: 10px 12px 14px;
-      color: var(--muted);
+    .summary .sub{
+      margin-top: 6px;
       font-size: 13px;
-      line-height: 1.6;
+      color: var(--text);
+      line-height: 1.55;
+      font-weight: 400;
     }
-    .mapPlaceholder{
-      border: 1px dashed rgba(255,255,255,0.22);
-      border-radius: 12px;
-      padding: 10px 10px;
-      background: rgba(0,0,0,0.07);
+    .summary .sub.book{
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .summary .sub.book strong{
+      color: var(--text);
+      font-weight: 800;
+    }
+
+    .dayHeader{
+      padding: 14px 14px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .dayHeader .h{
+      font-weight: 850;
+      font-size: 16px;
+      line-height: 1.35;
+    }
+    .dayHeader .note{
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    .dayNavRow{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
       margin-top: 10px;
+    }
+
+    .slots{
+      padding: 12px 14px 16px;
+      display: grid;
+      gap: 12px;
+    }
+    .slot{
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      background: rgba(255,255,255,0.03);
     }
     @media (prefers-color-scheme: light){
-      .mapPlaceholder{ background: rgba(255,255,255,0.65); }
+      .slot{ background: rgba(255,255,255,0.5); }
     }
-    iframe.mapFrame{
-      width: 100%;
-      height: 280px;
-      border: 0;
-      border-radius: 12px;
-      display:block;
-      margin-top: 10px;
-    }
-
-    .list{
-      margin: 10px 0 0;
-      padding-left: 18px;
+    .slot .label{
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
       color: var(--muted);
-      line-height: 1.7;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+    .slot .body{
       font-size: 13px;
+      line-height: 1.65;
+      color: var(--text);
     }
-
-    .footerNote{
-      margin-top: 20px;
+    .slot .body.muted{
       color: var(--muted);
-      font-size: 12.5px;
-      line-height: 1.75;
-      padding: 0 4px;
     }
 
-    /* Mobile: sidebar becomes a single selector */
-    @media (max-width: 560px){
-      .grid{ gap: 12px; }
-      .actions .btn.hide-sm{ display:none; }
-      .brand{ min-width: 0; }
-      .brand .sub{ max-width: 52vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-      .selectRow{
-        display:flex;
-        gap: 10px;
-        align-items: center;
-        justify-content: space-between;
-        padding: 12px 12px 14px;
-      }
-      .sidebarCard{ display:none; }
+    .sectionAnchor{ scroll-margin-top: 88px; }
+
+    .visually-hidden{
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
 
-    /* Reduce motion */
     @media (prefers-reduced-motion: reduce){
-      .btn{ transition: none; }
+      .btn:active{ transform: none; }
     }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <header class="topbar" role="banner">
-      <div class="brand">
-        <div class="title">西安旅行总规划</div>
-        <div class="sub">PC/H5 自适应 · 一份网页直接打开即可分享</div>
-      </div>
-      <div class="actions">
-        <button class="btn ghost small hide-sm" id="copyLinkBtn" type="button" title="复制当前链接">
-          复制分享链接
-        </button>
-        <a class="btn warn small" href="#top" id="backHomeBtn" title="回到首页概览">
-          返回首页
-        </a>
-      </div>
+    <header class="topbar">
+      <div class="title">西安旅行规划</div>
+      <label class="visually-hidden" for="navSelect">跳转</label>
+      <select id="navSelect" aria-label="选择日期或总览">
+        <option value="">总览</option>
+        <option value="day1">Day1 · 3.25（周三）</option>
+        <option value="day2">Day2 · 3.26（周四）</option>
+        <option value="day3">Day3 · 3.27（周五）</option>
+        <option value="day4">Day4 · 3.28（周六）</option>
+        <option value="day5">Day5 · 3.29（周日）</option>
+        <option value="day6">Day6 · 3.30（周一）</option>
+      </select>
     </header>
 
-    <div id="top" class="grid" aria-label="行程总览">
-      <aside class="card sidebarCard" aria-label="日期导航">
-          <div class="hd">
-          <div class="h">Day 导航</div>
-          <div class="badge">Day1~Day6</div>
+    <main>
+      <!-- 首页：仅总行程 -->
+      <section class="card homePanel" id="top" aria-label="总行程">
+        <div class="hd">总行程</div>
+        <div class="bd">
+          <ul class="summary">
+            <li>
+              <a href="#day1">Day1 · 3.25（周三）</a>
+              <div class="sub">行程：西安咸阳机场 → 机场附近如家</div>
+              <!-- <div class="sub book"><strong>预约：</strong>无</div> -->
+            </li>
+            <li>
+              <a href="#day2">Day2 · 3.26（周四）</a>
+              <div class="sub">行程：机场酒店 → 长陵（待定） → 秦咸阳宫（待定） → 钟楼-酒店（放置行李） → 钟楼地铁站观光车（约 54 分）→ 兵马俑博物馆</div>
+              <div class="sub book"><strong>预约：</strong>兵马俑</div>
+            </li>
+            <li>
+              <a href="#day3">Day3 · 3.27（周五）</a>
+              <div class="sub">行程：西安高铁站 ⇄ 华山北 · 华山西上北下</div>
+              <div class="sub book"><strong>预约：</strong>华山（西上北下门票/索道等）、往返高铁</div>
+            </li>
+            <li>
+              <a href="#day4">Day4 · 3.28（周六）</a>
+              <div class="sub">行程：陕西历史博物馆 → 零散市区</div>
+              <div class="sub book"><strong>预约：</strong>陕西历史博物馆</div>
+            </li>
+            <li>
+              <a href="#day5">Day5 · 3.29（周日）</a>
+              <div class="sub">西安 ⇄ 壶口瀑布（跟团一日往返）</div>
+              <div class="sub book"><strong>预约：</strong>旅行团</div>
+            </li>
+            <li>
+              <a href="#day6">Day6 · 3.30（周一）</a>
+              <div class="sub">市区 → 西安咸阳机场</div>
+              <div class="sub book"><strong>预约：</strong>无</div>
+            </li>
+          </ul>
         </div>
-        <div class="dayList" id="dayList">
-          <!-- Day1 -->
-          <div class="dayChip" data-day="day1">
-            <div class="dayMeta">
-              <div class="left">
-                <div class="d">Day1 <span class="badge">3.25（周三）</span></div>
-                <div class="hint">交通 + 休息日 · 落地睡一夜</div>
-              </div>
-            </div>
-            <div class="pillRow">
-              <span class="pill">落地打电话接机</span>
-              <span class="pill">机场附近酒店</span>
-            </div>
-            <div class="dayCardBody">
-              <a class="btn primary small" href="#day1" rel="nofollow">查看详情</a>
-            </div>
-          </div>
-          <!-- Day2 -->
-          <div class="dayChip" data-day="day2">
-            <div class="dayMeta">
-              <div class="left">
-                <div class="d">Day2 <span class="badge">3.26（周四）</span></div>
-                <div class="hint">市区游 · 兵马俑 + 骊山</div>
-              </div>
-            </div>
-            <div class="pillRow">
-              <span class="pill">寄存行李</span>
-              <span class="pill">往返市区</span>
-            </div>
-            <div class="dayCardBody">
-              <a class="btn primary small" href="#day2" rel="nofollow">查看详情</a>
-            </div>
-          </div>
-          <!-- Day3 -->
-          <div class="dayChip" data-day="day3">
-            <div class="dayMeta">
-              <div class="left">
-                <div class="d">Day3 <span class="badge">3.27（周五）</span></div>
-                <div class="hint">华山 · 高铁往返 + 预订</div>
-              </div>
-            </div>
-            <div class="pillRow">
-              <span class="pill">提前买票/预约</span>
-              <span class="pill">徒步/索道选择</span>
-            </div>
-            <div class="dayCardBody">
-              <a class="btn primary small" href="#day3" rel="nofollow">查看详情</a>
-            </div>
-          </div>
-          <!-- Day4 -->
-          <div class="dayChip" data-day="day4">
-            <div class="dayMeta">
-              <div class="left">
-                <div class="d">Day4 <span class="badge">3.28（周六）</span></div>
-                <div class="hint">市区游 · 西安博物馆 + 零散</div>
-              </div>
-            </div>
-            <div class="pillRow">
-              <span class="pill">博物馆预约</span>
-              <span class="pill">城墙/回民街选项</span>
-            </div>
-            <div class="dayCardBody">
-              <a class="btn primary small" href="#day4" rel="nofollow">查看详情</a>
-            </div>
-          </div>
-          <!-- Day5 -->
-          <div class="dayChip" data-day="day5">
-            <div class="dayMeta">
-              <div class="left">
-                <div class="d">Day5 <span class="badge">3.29（周日）</span></div>
-                <div class="hint">壶口瀑布 · 报团一天往返</div>
-              </div>
-            </div>
-            <div class="pillRow">
-              <span class="pill">早出发集合</span>
-              <span class="pill">带雨具/证件</span>
-            </div>
-            <div class="dayCardBody">
-              <a class="btn primary small" href="#day5" rel="nofollow">查看详情</a>
-            </div>
-          </div>
+      </section>
 
-          <!-- Optional Day6 card (not in the main list title, but available) -->
-          <div class="dayChip" data-day="day6">
-            <div class="dayMeta">
-              <div class="left">
-                <div class="d">Day6 <span class="badge">3.30（周一）</span></div>
-                <div class="hint">交通日 · 9:00 前到机场</div>
-              </div>
-            </div>
-            <div class="pillRow">
-              <span class="pill">留出缓冲时间</span>
-              <span class="pill">提前确认航站楼/安检</span>
-            </div>
-            <div class="dayCardBody">
-              <a class="btn warn small" href="#day6" rel="nofollow">查看详情</a>
-            </div>
+      <section class="card sectionAnchor dayDetail" id="day1" aria-label="Day1">
+        <div class="dayHeader">
+          <div class="h">Day1 · 3.25（周三）交通 + 休息</div>
+          <div class="dayNavRow">
+            <a class="btn" href="#top">← 总览</a>
+            <a class="btn" href="#day2">下一天 →</a>
           </div>
         </div>
-
-        <div class="footerNote" style="padding: 0 16px 16px;">
-          小提示：如果你把文件发给别人，页面会保持“单文件”可用；地图依赖联网加载。
+        <div class="slots">
+          <div class="slot">
+            <div class="label">上午</div>
+            <div class="body muted">上班，整理工作交接</div>
+          </div>
+          <div class="slot">
+            <div class="label">下午</div>
+            <div class="body muted">洗澡洗头，晚上落地很晚，没时间洗澡</div>
+          </div>
+          <div class="slot">
+            <div class="label">晚上</div>
+            <div class="body">飞机落地；致电管家接机；入住机场附近如家酒店；休息。</div>
+          </div>
         </div>
-      </aside>
+      </section>
 
-      <main>
-        <section class="card hero" aria-label="首页摘要">
-          <div class="bd heroBox">
-            <div>
-              <div class="heroTitle">Day1~Day6 一览</div>
-              <div class="heroSub">
-                默认首页展示 Day1~Day5 概览，点击按钮进入对应详细规划；底部也提供 Day6（交通日）详情。每一天都预留“地图加载”按钮（可懒加载，减少打开即卡顿）。
-              </div>
-            </div>
-
-            <div class="quickGrid" role="group" aria-label="关键信息">
-              <div class="quickItem">
-                <div class="k">出行策略</div>
-                <div class="v">关键点先预约：博物馆/华山/壶口团/交通时段</div>
-              </div>
-              <div class="quickItem">
-                <div class="k">行李建议</div>
-                <div class="v">Day3 华山：轻便背包 + 防滑鞋 + 证件</div>
-              </div>
-              <div class="quickItem">
-                <div class="k">交通缓冲</div>
-                <div class="v">Day6 明确“9点前到机场”，建议更早出发</div>
-              </div>
-            </div>
-
-            <div class="selectRow" aria-label="移动端选择">
-              <div style="font-weight:900;">跳到：</div>
-              <select id="mobileDaySelect" style="flex:1; padding: 10px 12px; border-radius: 14px; border: 1px solid var(--border); background: rgba(255,255,255,0.04); color: var(--text);">
-                <option value="#day1">Day1 3.25（周三）</option>
-                <option value="#day2">Day2 3.26（周四）</option>
-                <option value="#day3">Day3 3.27（周五）</option>
-                <option value="#day4">Day4 3.28（周六）</option>
-                <option value="#day5">Day5 3.29（周日）</option>
-                <option value="#day6">Day6 3.30（周一）</option>
-              </select>
-              <a class="btn primary small" href="#day1" id="mobileJumpBtn">去</a>
-            </div>
+      <section class="card sectionAnchor dayDetail" id="day2" aria-label="Day2">
+        <div class="dayHeader">
+          <div class="h">Day2 · 3.26（周四）市区</div>
+          <div class="note">预约：兵马俑。酒店：易舍·101酒店。</div>
+          <div class="dayNavRow">
+            <a class="btn" href="#day1">← 上一天</a>
+            <a class="btn" href="#top">总览</a>
+            <a class="btn" href="#day3">下一天 →</a>
           </div>
-        </section>
-
-        <section class="card sectionAnchor section dayDetail" id="day1" aria-label="Day1 详细规划">
-          <div class="dayHeader">
-            <div class="left">
-              <div class="h">Day1 - 3.25（周三） <span class="badge">交通 + 休息日</span></div>
-              <div class="t">晚飞机落地，优先保证“落地接送 + 休息恢复”。</div>
-            </div>
-            <div class="actions">
-              <a class="btn small" href="#top" rel="nofollow">返回首页</a>
-              <a class="btn ghost small" href="#day2" rel="nofollow">下一天</a>
-            </div>
-          </div>
-
-          <ul class="timeline">
-            <li class="tItem">
-              <div class="tTop">
-                <div class="tTitle">落地接机 + 入住节奏</div>
-                <div class="tTime">建议：落地后 0-60 分钟</div>
-              </div>
-              <div class="tDesc">
-                1) 下飞机取行李 → 2) 给管家/司机电话（告知：航站楼/到达口）→ 3) 约定上车点 → 4) 到酒店入住。
-                5) 入住后：快速确认明日寄存/叫醒时间（可手机设闹钟）→ 6) 充电 + 水先备好。
-              </div>
-              <div class="tagRow">
-                <span class="tag warn">保留缓冲：安检/取行李不可控</span>
-                <span class="tag good">目标：当天不赶景点</span>
-              </div>
-            </li>
-            <li class="tItem">
-              <div class="tTop">
-                <div class="tTitle">机场附近酒店（如家）</div>
-                <div class="tTime">建议：只睡一夜</div>
-              </div>
-              <div class="tDesc">
-                入住后尽快休息；晚餐可选“距离近的简餐/便利店”，避免来回折腾。
-                入住时顺便确认：是否支持次日寄存/提前取房卡、早餐是否需要额外说明。
-              </div>
-              <div class="tagRow">
-                <span class="tag good">把“明天行李怎么放”提前问清楚</span>
-              </div>
-            </li>
-            <li class="tItem">
-              <div class="tTop">
-                <div class="tTitle">明日出行准备</div>
-                <div class="tTime">建议：入住后 10 分钟</div>
-              </div>
-              <div class="tDesc">
-                准备好 Day2 可能用到的证件/充电器；衣物按当天出门需求分好（轻便外套/水/遮阳）。
-                手机提前开好离线地图；交通卡余额先核对；把“明天出发时间”和“叫车/接送联系人”放在便签/锁屏。
-              </div>
-            </li>
-            <li class="tItem">
-              <div class="tTop">
-                <div class="tTitle">晚上：轻松晚餐 + 早点睡</div>
-                <div class="tTime">建议：20:00 前后（看航班落地时间）</div>
-              </div>
-              <div class="tDesc">
-                当天只做“能量补给”，别把体力耗在长距离吃饭/排队上。
-                你第二天要去兵马俑与骊山，早点睡能让华山（Day3）更从容。
-              </div>
-              <div class="tagRow">
-                <span class="tag">如果到得太晚：便利店 + 温热饮替代也可以</span>
-              </div>
-            </li>
-          </ul>
-
-          <div class="split">
-            <div class="mapBox">
-              <div class="mapHd">
-                <div class="h">地图：机场附近酒店（示例）</div>
-                <button class="btn primary small" type="button" data-map-target="map-day1">加载地图</button>
-              </div>
-              <div class="mapBody">
-                <div>你可以替换为“你入住的如家具体门店”。示例地图已放入“西安咸阳机场附近”。</div>
-                <div class="mapPlaceholder">
-                  小技巧：不想加载地图也没关系，直接看下面的地点链接即可。
-                </div>
-                <div id="map-day1" data-map-iframe="https://www.openstreetmap.org/export/embed.html?bbox=108.70%2C34.38%2C108.95%2C34.60&layer=mapnik&marker=34.4431%2C108.7495">
-                  <!-- lazy iframe -->
-                </div>
-                <div style="margin-top:10px;">
-                  备用打开（OpenStreetMap）：<a href="https://www.openstreetmap.org/#map=12/34.4431/108.7495" target="_blank" rel="noopener">西安咸阳机场附近</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="mapBox">
-              <div class="mapHd">
-                <div class="h">今日提醒</div>
-                <span class="badge">可勾选</span>
-              </div>
-              <div class="mapBody">
-                <ul class="list">
-                  <li>确认落地航站楼/到达口，保持电话可用</li>
-                  <li>把明天去市区的行李“先想好怎么带、怎么放”</li>
-                  <li>建议准备：充电宝 + 证件（放随身包，不要放托运行李）</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="card sectionAnchor section dayDetail" id="day2" aria-label="Day2 详细规划">
-          <div class="dayHeader">
-            <div class="left">
-              <div class="h">Day2 - 3.26（周四） <span class="badge">市区游</span></div>
-              <div class="t">早上寄存行李 → 兵马俑（主线）→ 骊山（留体力）→ 晚上回酒店休整。</div>
-            </div>
-            <div class="actions">
-              <a class="btn small" href="#day1" rel="nofollow">上一天</a>
-              <a class="btn ghost small" href="#day3" rel="nofollow">下一天</a>
-            </div>
-          </div>
-
-          <ul class="timeline">
-            <li class="tItem">
-              <div class="tTop">
-                <div class="tTitle">早上：寄存行李 + 早餐/出发准备</div>
-                <div class="tTime">建议：08:00-10:00</div>
-              </div>
-              <div class="tDesc">
-                你可以在“市区酒店/前台”先寄存或办理入住；随后直接去兵马俑，避免一天来回搬运。
-                建议：把“当天必用物品”（水/手机/充电宝/身份证）放随身包；托运行李放好、离开前再核对一遍。
-              </div>
-              <div class="tagRow">
-                <span class="tag good">目标：降低当天通勤压力</span>
-              </div>
-            </li>
-
-            <li class="tItem">
-              <div class="tTop">
-                <div class="tTitle">上午：兵马俑（建议先看精华）</div>
-                <div class="tTime">建议：09:30-12:30</div>
-              </div>
-              <div class="tDesc">
-                建议：先把“主展区/代表性坑位”看完，再按兴趣补充；人多时按路线走，别来回绕。
-                午餐建议：兵马俑周边或回市区途中选择“就近简餐/快餐”，保证下午去骊山还有体力。
-              </div>
-              <div class="tagRow">
-                <span class="tag warn">旺季建议：提前预约/买票并留意入园时间</span>
-              </div>
-            </li>
-
-            <li class="tItem">
-              <div class="tTop">
-                <div class="tTitle">下午：骊山（景观+步道，按体力调整）</div>
-                <div class="tTime">建议：14:00-16:30</div>
-              </div>
-              <div class="tDesc">
-                骊山以“景观+步道”为主：步行时长按体力弹性；如果当天人多/温度高，可先挑核心观景点再返程。
-                建议带：水、防晒（或遮阳帽/薄外套），走段路别穿太软底的鞋。
-              </div>
-              <div class="tagRow">
-                <span class="tag">天气热的话：带水、防晒、帽子</span>
-              </div>
-            </li>
-
-            <li class="tItem">
-              <div class="tTop">
-                <div class="tTitle">晚上：返回市区休整</div>
-                <div class="tTime">建议：17:30-20:00</div>
-              </div>
-              <div class="tDesc">
-                回酒店后洗漱休息；晚餐建议就近解决（不要把“非必去”放到夜里赶路）。
-                简单复盘：明天华山的车次/集合时间是否已确认（避免早上再找信息）。
-              </div>
-            </li>
-          </ul>
-
-          <div class="split">
-            <div class="mapBox">
-              <div class="mapHd">
-                <div class="h">地图：兵马俑/骊山（示例）</div>
-                <button class="btn primary small" type="button" data-map-target="map-day2">加载地图</button>
-              </div>
-              <div class="mapBody">
-                <div>示例点位：兵马俑与骊山；你可在加载后再根据实际路线微调。</div>
-                <div id="map-day2" data-map-iframe="https://www.openstreetmap.org/export/embed.html?bbox=109.18%2C34.33%2C109.33%2C34.43&layer=mapnik&marker=34.3921%2C109.2270"></div>
-                <div style="margin-top:10px;">
-                  备用打开（OpenStreetMap）：<a href="https://www.openstreetmap.org/#map=11/34.3841/109.2732" target="_blank" rel="noopener">兵马俑一带</a>
-                </div>
-              </div>
-            </div>
-            <div class="mapBox">
-              <div class="mapHd">
-                <div class="h">今日提醒</div>
-                <span class="badge">建议</span>
-              </div>
-              <div class="mapBody">
-                <ul class="list">
-                  <li>提前想好：去景点的交通方式（打车/地铁换乘/包车）</li>
-                  <li>兵马俑人流多：穿舒适鞋、预留排队时间</li>
-                  <li>返回市区后避免“走太远”，保证休息质量</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="card sectionAnchor section dayDetail" id="day3" aria-label="Day3 详细规划">
-          <div class="dayHeader">
-            <div class="left">
-              <div class="h">Day3 - 3.27（周五） <span class="badge">华山</span></div>
-              <div class="t">高铁往返（建议华山北进出）+ 预约/检票规则提前确认。</div>
-            </div>
-            <div class="actions">
-              <a class="btn small" href="#day2" rel="nofollow">上一天</a>
-              <a class="btn ghost small" href="#day4" rel="nofollow">下一天</a>
-            </div>
-          </div>
-
-          <ul class="timeline">
-            <li class="tItem">
-              <div class="tTop">
-                <div class="tTitle">早上：到车站 → 出发（建议留 60-90 分钟余量）</div>
-                <div class="tTime">建议：出发前 60-90 分钟到站</div>
-              </div>
-              <div class="tDesc">
-                车次建议你优先选到“华山北站”（常见接驳点）；到站后按景区指引换乘/乘接驳车上山。
-                提前准备：身份证/车票/预约码（如有）+ 随身水。
-              </div>
-              <div class="tagRow">
-                <span class="tag warn">务必核对：检票口/进站规则</span>
-              </div>
-            </li>
-
-            <li class="tItem">
-              <div class="tTop">
-                <div class="tTitle">中午：到华山景区 → 选路线/索道时间</div>
-                <div class="tTime">建议：11:00-13:30</div>
-              </div>
-              <div class="tDesc">
-                到景区后先确认：索道/景交是否有预约或排队窗口；再决定走哪条（东/西等）与进出点。
-                如果你想看日落/拍“金色时刻”，就把“最晚下山返程时间”提前定死。
-              </div>
-              <div class="tagRow">
-                <span class="tag">可选：索道减少爬升压力（以当日运营为准）</span>
-              </div>
-            </li>
-
-            <li class="tItem">
-              <div class="tTop">
-                <div class="tTitle">下午：徒步/观景（稳步慢行）+ 设最晚返程点</div>
-                <div class="tTime">建议：14:00-17:00</div>
-              </div>
-              <div class="tDesc">
-                华山节奏建议“稳步慢行”：每隔一段就补水；注意脚下防滑、防风保暖（山上体感差异大）。
-                下雨/大风天不硬刚，优先走“更稳更安全”的路段，别把体力用完才下山。
-              </div>
-              <div class="tagRow">
-                <span class="tag bad">风险提醒：下雨/大风天尽量谨慎选择路段</span>
-                <span class="tag good">带水 + 防滑鞋最关键</span>
-              </div>
-            </li>
-
-            <li class="tItem">
-              <div class="tTop">
-                <div class="tTitle">傍晚：下山换乘 → 返程回市区</div>
-                <div class="tTime">建议：16:30 后开始考虑下山与赶车</div>
-              </div>
-              <div class="tDesc">
-                返程前先确认：是否存在排队/接驳等待；返程车次尽量别卡点，留出“进站/检票”缓冲。
-              </div>
-            </li>
-          </ul>
-
-          <div class="split">
-            <div class="mapBox">
-              <div class="mapHd">
-                <div class="h">地图：华山景区（示例）</div>
-                <button class="btn primary small" type="button" data-map-target="map-day3">加载地图</button>
-              </div>
-              <div class="mapBody">
-                <div>示例点位：华山景区入口/核心区域（可替换为你实际进出点）。</div>
-                <div id="map-day3" data-map-iframe="https://www.openstreetmap.org/export/embed.html?bbox=109.90%2C34.40%2C110.25%2C34.60&layer=mapnik&marker=34.4729%2C110.0745"></div>
-                <div style="margin-top:10px;">
-                  备用打开（OpenStreetMap）：<a href="https://www.openstreetmap.org/#map=12/34.4729/110.0745" target="_blank" rel="noopener">华山景区</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="mapBox">
-              <div class="mapHd">
-                <div class="h">出行清单（华山专用）</div>
-                <span class="badge">打勾</span>
-              </div>
-              <div class="mapBody">
-                <ul class="list">
-                  <li>身份证/学生证等证件（如有购票/优惠）</li>
-                  <li>防滑鞋 + 轻便外套（山上风大）</li>
-                  <li>充电宝 + 现金零钱（应急）</li>
-                  <li>雨具或防雨帽（天气不稳时很重要）</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="card sectionAnchor section dayDetail" id="day4" aria-label="Day4 详细规划">
-          <div class="dayHeader">
-            <div class="left">
-              <div class="h">Day4 - 3.28（周六） <span class="badge">市区游</span></div>
-              <div class="t">西安博物馆（预约入馆）+ 城墙/钟鼓楼/回民街（按体力选顺序）。</div>
-            </div>
-            <div class="actions">
-              <a class="btn small" href="#day3" rel="nofollow">上一天</a>
-              <a class="btn ghost small" href="#day5" rel="nofollow">下一天</a>
-            </div>
-          </div>
-
-          <ul class="timeline">
-            <li class="tItem">
-              <div class="tTop">
-                <div class="tTitle">上午：西安博物馆（预约入馆）</div>
-                <div class="tTime">建议：09:00-12:00</div>
-              </div>
-              <div class="tDesc">
-                博物馆通常需要预约/扫码入馆。建议提前 20-30 分钟到馆：先核验预约信息，再按动线把“必看主题”优先走完；如果排队超出预期，就缩短停留，把重点内容看够。
-              </div>
-              <div class="tagRow">
-                <span class="tag warn">预约优先：把入馆时段当成“主约”</span>
-              </div>
-            </li>
-
-            <li class="tItem">
-              <div class="tTop">
-                <div class="tTitle">中午：博物馆附近午餐 + 快速休息</div>
-                <div class="tTime">建议：12:00-13:30</div>
-              </div>
-              <div class="tDesc">
-                尽量选“步行/短距离交通可达”的餐点：吃完能快速回到主线动线里。下午人多，减少跨区移动更轻松。
-              </div>
-            </li>
-
-            <li class="tItem">
-              <div class="tTop">
-                <div class="tTitle">下午：城墙/钟鼓楼/回民街（可选顺序）</div>
-                <div class="tTime">建议：14:00-18:00</div>
-              </div>
-              <div class="tDesc">
-                推荐顺序（按体力二选一）：<br/>
-                A) 城墙（走一段或骑行）→ 钟楼/鼓楼周边 → 回酒店休整。<br/>
-                B) 直接钟楼/鼓楼周边 → 晚上回民街（夜里更热闹）。<br/>
-                原则：步行距离控制在 1-2 片区域内，别在“人多+走远”里硬撑。
-              </div>
-              <div class="tagRow">
-                <span class="tag">把“最想去的点”放在下午前半完成</span>
-              </div>
-            </li>
-
-            <li class="tItem">
-              <div class="tTop">
-                <div class="tTitle">晚上：回民街周边轻松散步（小吃为主）</div>
-                <div class="tTime">建议：18:00-20:30</div>
-              </div>
-              <div class="tDesc">
-                晚上不安排太密：以“散步+挑你喜欢的店”为主。人多时先把重要物品贴身保管，别边走边翻包。
-              </div>
-            </li>
-          </ul>
-
-          <div class="split">
-            <div class="mapBox">
-              <div class="mapHd">
-                <div class="h">地图：西安博物馆（示例）</div>
-                <button class="btn primary small" type="button" data-map-target="map-day4">加载地图</button>
-              </div>
-              <div class="mapBody">
-                <div>示例点位：西安博物馆核心位置。</div>
-                <div id="map-day4" data-map-iframe="https://www.openstreetmap.org/export/embed.html?bbox=108.90%2C34.22%2C109.00%2C34.31&layer=mapnik&marker=34.2633%2C108.9416"></div>
-                <div style="margin-top:10px;">
-                  备用打开（OpenStreetMap）：<a href="https://www.openstreetmap.org/#map=12/34.2633/108.9416" target="_blank" rel="noopener">西安博物馆</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="mapBox">
-              <div class="mapHd">
-                <div class="h">今日提醒</div>
-                <span class="badge">关键</span>
-              </div>
-              <div class="mapBody">
-                <ul class="list">
-                  <li>博物馆入馆时间以预约为准；建议提前 20 分钟到达更稳</li>
-                  <li>城墙/钟鼓楼区域步行多：水 + 防晒（必要时带薄外套）</li>
-                  <li>回民街夜里人多：手机/钱包贴身，别把贵重物放外侧口袋</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="card sectionAnchor section dayDetail" id="day5" aria-label="Day5 详细规划">
-          <div class="dayHeader">
-            <div class="left">
-              <div class="h">Day5 - 3.29（周日） <span class="badge">壶口瀑布</span></div>
-              <div class="t">报团一天往返：以集合/发车为核心时间轴。</div>
-            </div>
-            <div class="actions">
-              <a class="btn small" href="#day4" rel="nofollow">上一天</a>
-              <a class="btn ghost small" href="#day6" rel="nofollow">下一天</a>
-            </div>
-          </div>
-
-          <ul class="timeline">
-            <li class="tItem">
-              <div class="tTop">
-                <div class="tTitle">早上：集合签到 + 随身包打包</div>
-                <div class="tTime">建议：比集合时间早 20-30 分钟到</div>
-              </div>
-              <div class="tDesc">
-                跟团常见节奏：集合 → 大巴发车 → 壶口游览 → 返程。
-                以你们团的通知为准。出发前建议在随身包里放好：身份证/雨具/充电宝/水 + 可能的晕车药或晕车贴。
-              </div>
-              <div class="tagRow">
-                <span class="tag warn">证件必带：可能涉及景区/通行登记</span>
-              </div>
-            </li>
-
-            <li class="tItem">
-              <div class="tTop">
-                <div class="tTitle">上午/中午：到达壶口 + 观景</div>
-                <div class="tTime">建议：11:00 前后开始游览</div>
-              </div>
-              <div class="tDesc">
-                壶口瀑布风大水汽足：建议带外套/雨具，别穿太容易进水的鞋。
-                如果团里安排多个观景点：优先先看“指定核心点”，再根据体力补拍/补走。
-              </div>
-              <div class="tagRow">
-                <span class="tag good">建议：准备一次性雨披或雨伞</span>
-              </div>
-            </li>
-
-            <li class="tItem">
-              <div class="tTop">
-                <div class="tTitle">下午：返程前自由补给（团安排为主）</div>
-                <div class="tTime">建议：按团通知</div>
-              </div>
-              <div class="tDesc">
-                返程前先确认大巴发车时间与集合点；返程途中注意休息，给 Day6 的“交通日”留体力。
-                需要的补给（洗手间/加水/小食）尽量在发车前完成。
-              </div>
-            </li>
-          </ul>
-
-          <div class="split">
-            <div class="mapBox">
-              <div class="mapHd">
-                <div class="h">地图：壶口瀑布（示例）</div>
-                <button class="btn primary small" type="button" data-map-target="map-day5">加载地图</button>
-              </div>
-              <div class="mapBody">
-                <div>示例点位：壶口瀑布核心区域。</div>
-                <div id="map-day5" data-map-iframe="https://www.openstreetmap.org/export/embed.html?bbox=110.02%2C36.02%2C110.30%2C36.18&layer=mapnik&marker=36.0833%2C110.1567"></div>
-                <div style="margin-top:10px;">
-                  备用打开（OpenStreetMap）：<a href="https://www.openstreetmap.org/#map=12/36.0833/110.1567" target="_blank" rel="noopener">壶口瀑布</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="mapBox">
-              <div class="mapHd">
-                <div class="h">今日提醒</div>
-                <span class="badge">打包</span>
-              </div>
-              <div class="mapBody">
-                <ul class="list">
-                  <li>证件/车船票务信息：放随身包（最好随手能拿）</li>
-                  <li>雨具 + 保暖外套（风大水汽）</li>
-                  <li>路上零食/水：团里不一定适合每个人的口味（按需自带）</li>
-                  <li>（可选）晕车药/晕车贴 + 一次性纸巾/湿巾</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="card sectionAnchor section dayDetail" id="day6" aria-label="Day6 详细规划">
-          <div class="dayHeader">
-            <div class="left">
-              <div class="h">Day6 - 3.30（周一） <span class="badge">交通日</span></div>
-              <div class="t">早上出发，目标 09:00 前到机场。建议留足缓冲（越早越稳）。</div>
-            </div>
-            <div class="actions">
-              <a class="btn small" href="#day5" rel="nofollow">上一天</a>
-              <a class="btn ghost small" href="#top" rel="nofollow">回到首页</a>
-            </div>
-          </div>
-
-          <ul class="timeline">
-            <li class="tItem">
-              <div class="tTop">
-                <div class="tTitle">清晨：退房 + 早餐/补水 + 装行李</div>
-                <div class="tTime">建议：06:30-07:10</div>
-              </div>
-              <div class="tDesc">
-                退房前先确认：行李是否全部带走、充电器/雨具是否还在房间。
-                早餐以“快速补能量 + 补水”为主；把随身证件放在上衣/随身包最外层便于安检使用。
-              </div>
-              <div class="tagRow">
-                <span class="tag warn">提前把“证件/机票/随身物品”放到固定位置</span>
-              </div>
-            </li>
-
-            <li class="tItem">
-              <div class="tTop">
-                <div class="tTitle">出发：前往机场（留缓冲）</div>
-                <div class="tTime">建议：07:10-08:30 抵达周边</div>
-              </div>
-              <div class="tDesc">
-                交通日最怕“赶时间 + 临时堵车”。建议至少往前推 30-60 分钟，并提前确认：航站楼/停车场/到达点。
-              </div>
-              <div class="tagRow">
-                <span class="tag good">缓冲越足，越不会影响心态</span>
-              </div>
-            </li>
-
-            <li class="tItem">
-              <div class="tTop">
-                <div class="tTitle">机场到达：值机/托运 + 安检 + 候机</div>
-                <div class="tTime">目标：09:00 前完成“到达机场”</div>
-              </div>
-              <div class="tDesc">
-                到达后优先：值机/行李托运/安检/登机口确认。
-                建议预留“可能的安检排队时间”，把登机口查明后再从容候机。
-              </div>
-            </li>
-          </ul>
-
-          <div class="split">
-            <div class="mapBox">
-              <div class="mapHd">
-                <div class="h">地图：西安咸阳机场（示例）</div>
-                <button class="btn primary small" type="button" data-map-target="map-day6">加载地图</button>
-              </div>
-              <div class="mapBody">
-                <div>示例点位：西安咸阳国际机场（XIY）。如果你乘坐的是不同机场，把坐标替换即可。</div>
-                <div id="map-day6" data-map-iframe="https://www.openstreetmap.org/export/embed.html?bbox=108.58%2C34.36%2C108.86%2C34.56&layer=mapnik&marker=34.4431%2C108.7495"></div>
-                <div style="margin-top:10px;">
-                  备用打开（OpenStreetMap）：<a href="https://www.openstreetmap.org/#map=12/34.4431/108.7495" target="_blank" rel="noopener">西安咸阳机场</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="mapBox">
-              <div class="mapHd">
-                <div class="h">出发前最后核对</div>
-                <span class="badge">强烈建议</span>
-              </div>
-              <div class="mapBody">
-                <ul class="list">
-                  <li>证件/机票/充电器/雨具：放随身包，避免落下</li>
-                  <li>行李：是否已打包、是否还需要寄存/加锁</li>
-                  <li>联系信息：管家/司机/集合点的电话保存在通讯录</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <div class="footerNote">
-          说明：本文档里的时间是“建议占位 + 可按真实预约/车次/天气替换”。你也可以把具体酒店门店、车次号、集合地点补充到每天的“今日提醒/地图加载”区域。
         </div>
-      </main>
-    </div>
+        <div class="slots">
+          <div class="slot">
+            <div class="label">上午</div>
+            <div class="body">9:00–9:30 起床；带行李到市区「易舍·101酒店」寄存或办理入住。看意愿是否去长陵（刘邦、吕后封土堆）、秦咸阳宫遗址</div>
+          </div>
+          <div class="slot">
+            <div class="label">下午</div>
+            <div class="body">兵马俑/陕西历史博物馆</div>
+          </div>
+          <div class="slot">
+            <div class="label">晚上</div>
+            <div class="body">返回市区 / 酒店休整，可前往钟楼、城墙、回民街等</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card sectionAnchor dayDetail" id="day3" aria-label="Day3">
+        <div class="dayHeader">
+          <div class="h">Day3 · 3.27（周五）华山</div>
+          <div class="note">预约：西上北下（门票/索道等）+ 往返高铁。</div>
+          <div class="dayNavRow">
+            <a class="btn" href="#day2">← 上一天</a>
+            <a class="btn" href="#top">总览</a>
+            <a class="btn" href="#day4">下一天 →</a>
+          </div>
+        </div>
+        <div class="slots">
+          <div class="slot">
+            <div class="label">上午</div>
+            <div class="body">高铁前往华山（按已购车次）。</div>
+          </div>
+          <div class="slot">
+            <div class="label">下午</div>
+            <div class="body">华山游览：西上北下。</div>
+          </div>
+          <div class="slot">
+            <div class="label">晚上</div>
+            <div class="body">高铁返回西安。</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card sectionAnchor dayDetail" id="day4" aria-label="Day4">
+        <div class="dayHeader">
+          <div class="h">Day4 · 3.28（周六）市区</div>
+          <div class="note">提前预约：陕西历史博物馆。</div>
+          <div class="dayNavRow">
+            <a class="btn" href="#day3">← 上一天</a>
+            <a class="btn" href="#top">总览</a>
+            <a class="btn" href="#day5">下一天 →</a>
+          </div>
+        </div>
+        <div class="slots">
+          <div class="slot">
+            <div class="label">上午</div>
+            <div class="body">西安博物馆。</div>
+          </div>
+          <div class="slot">
+            <div class="label">下午</div>
+            <div class="body">陕西历史博物馆（按预约时段）+ 零散市区游。</div>
+          </div>
+          <div class="slot">
+            <div class="label">晚上</div>
+            <div class="body muted">（自由安排）</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card sectionAnchor dayDetail" id="day5" aria-label="Day5">
+        <div class="dayHeader">
+          <div class="h">Day5 · 3.29（周日）壶口瀑布</div>
+          <div class="note">报团：一天往返（按集合时间）。</div>
+          <div class="dayNavRow">
+            <a class="btn" href="#day4">← 上一天</a>
+            <a class="btn" href="#top">总览</a>
+            <a class="btn" href="#day6">下一天 →</a>
+          </div>
+        </div>
+        <div class="slots">
+          <div class="slot">
+            <div class="label">上午</div>
+            <div class="body">按团约定地点集合，乘车出发。</div>
+          </div>
+          <div class="slot">
+            <div class="label">下午</div>
+            <div class="body">壶口瀑布游览（按团行程）。</div>
+          </div>
+          <div class="slot">
+            <div class="label">晚上</div>
+            <div class="body">乘车返回西安。</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card sectionAnchor dayDetail" id="day6" aria-label="Day6">
+        <div class="dayHeader">
+          <div class="h">Day6 · 3.30（周一）离程</div>
+          <div class="dayNavRow">
+            <a class="btn" href="#day5">← 上一天</a>
+            <a class="btn" href="#top">总览</a>
+          </div>
+        </div>
+        <div class="slots">
+          <div class="slot">
+            <div class="label">上午</div>
+            <div class="body">从酒店出发；9:00 前抵达机场（值机 / 托运 / 安检）。</div>
+          </div>
+          <div class="slot">
+            <div class="label">下午</div>
+            <div class="body muted">（候机 / 返程）</div>
+          </div>
+          <div class="slot">
+            <div class="label">晚上</div>
+            <div class="body muted">—</div>
+          </div>
+        </div>
+      </section>
+    </main>
   </div>
 
   <script>
     (function(){
-      const copyBtn = document.getElementById('copyLinkBtn');
-      const mobileSelect = document.getElementById('mobileDaySelect');
-      const mobileJumpBtn = document.getElementById('mobileJumpBtn');
-      const dayList = document.getElementById('dayList');
-
-      // 1) Mobile: select跳转
-      if(mobileSelect && mobileJumpBtn){
-        mobileJumpBtn.addEventListener('click', function(e){
-          e.preventDefault();
-          const v = mobileSelect.value || '#day1';
-          location.hash = v.startsWith('#') ? v : ('#' + v);
-        });
-      }
-
-      // 2) Copy share link（含hash便于对方直接到某一天）
-      if(copyBtn && navigator.clipboard && window.isSecureContext){
-        copyBtn.addEventListener('click', async function(){
-          try{
-            const url = location.href;
-            await navigator.clipboard.writeText(url);
-            copyBtn.textContent = '已复制';
-            setTimeout(()=> copyBtn.textContent = '复制分享链接', 1200);
-          }catch(e){
-            alert('复制失败：请手动复制浏览器地址栏链接。');
-          }
-        });
-      }else if(copyBtn){
-        copyBtn.addEventListener('click', function(){
-          alert('当前环境可能不支持自动复制。请手动复制浏览器地址栏链接。');
-        });
-      }
-
-      // 3) 日导航高亮（基于hash）
+      const homePanel = document.querySelector('.homePanel');
       const dayDetails = document.querySelectorAll('.dayDetail');
-      function highlightByHash(){
-        const hash = (location.hash || '').replace('#','');
-        const chips = dayList ? dayList.querySelectorAll('.dayChip') : [];
-        chips.forEach(c => {
-          const day = (c.getAttribute('data-day') || '');
-          c.classList.toggle('active', day === hash);
+      const navSelect = document.getElementById('navSelect');
+      const copyBtn = document.getElementById('copyLinkBtn');
+
+      function currentHashId(){
+        const h = (location.hash || '').replace(/^#/, '');
+        return h;
+      }
+
+      function applyView(){
+        const id = currentHashId();
+        const isHome = !id || id === 'top';
+
+        if(homePanel){
+          homePanel.style.display = isHome ? '' : 'none';
+        }
+        dayDetails.forEach(function(el){
+          if(isHome){
+            el.style.display = 'none';
+          }else{
+            el.style.display = el.id === id ? '' : 'none';
+          }
         });
 
-        // 只显示当前Day详情：让打开时是“首页概览”
-        if(!hash || hash === 'top'){
-          dayDetails.forEach(d => d.style.display = 'none');
-        }else{
-          dayDetails.forEach(d => d.style.display = (d.id === hash) ? '' : 'none');
-          const target = document.getElementById(hash);
-          if(target && typeof target.scrollIntoView === 'function'){
-            const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            target.scrollIntoView({ block: 'start', behavior: reduceMotion ? 'auto' : 'smooth' });
+        if(navSelect){
+          navSelect.value = isHome ? '' : id;
+        }
+
+        if(!isHome){
+          const target = document.getElementById(id);
+          if(target && target.scrollIntoView){
+            var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            target.scrollIntoView({ block: 'start', behavior: reduce ? 'auto' : 'smooth' });
           }
+        }else{
+          window.scrollTo(0, 0);
         }
       }
-      window.addEventListener('hashchange', highlightByHash);
-      highlightByHash();
 
-      // 4) 懒加载地图：点击按钮后给容器插入 iframe
-      const buttons = document.querySelectorAll('[data-map-target]');
-      buttons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const targetId = btn.getAttribute('data-map-target');
-          const host = document.getElementById(targetId);
-          if(!host) return;
-          if(host.querySelector('iframe')) return; // already loaded
-          const src = host.getAttribute('data-map-iframe');
-          if(!src) return;
-          const iframe = document.createElement('iframe');
-          iframe.className = 'mapFrame';
-          iframe.loading = 'lazy';
-          iframe.referrerPolicy = 'no-referrer-when-downgrade';
-          iframe.src = src;
-          host.appendChild(iframe);
+      if(navSelect){
+        navSelect.addEventListener('change', function(){
+          var v = navSelect.value;
+          if(!v){
+            location.hash = 'top';
+          }else{
+            location.hash = v;
+          }
         });
-      });
+      }
+
+      window.addEventListener('hashchange', applyView);
+      applyView();
+
+      if(copyBtn){
+        copyBtn.addEventListener('click', function(){
+          if(navigator.clipboard && window.isSecureContext){
+            navigator.clipboard.writeText(location.href).then(function(){
+              copyBtn.textContent = '已复制';
+              setTimeout(function(){ copyBtn.textContent = '复制链接'; }, 1200);
+            }).catch(function(){
+              prompt('请手动复制：', location.href);
+            });
+          }else{
+            prompt('请手动复制：', location.href);
+          }
+        });
+      }
     })();
   </script>
 </body>
