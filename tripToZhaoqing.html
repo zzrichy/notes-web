@@ -259,9 +259,9 @@
             { name: "古城墙", note: "", lnglat: [112.461428, 23.048992] },
             { name: "肇庆博物馆", note: "去上课的", lnglat: [112.464826, 23.048075] },
             { name: "骑楼街", note: "有臭豆腐、牛杂，一条有点特色的美食街", lnglat: [112.467551, 23.045939], image: "https://cdn.nlark.com/yuque/0/2026/jpeg/28536210/1777029760432-66279268-93ba-4526-a70c-8d40ba75bd6d.jpeg" },
-            { name: "西江", note: "看日落", lnglat: [112.466000, 23.042500],  }, // 在骑楼街之后插入，南下直达江边观景
+            { name: "西江", note: "看日落", lnglat: [112.466000, 23.042500], image: "https://cdn.nlark.com/yuque/0/2026/jpeg/28536210/1777029765187-a2bf1989-c825-4036-a6a2-9e9354d45d70.jpeg" }, // 在骑楼街之后插入，南下直达江边观景
             { name: "古城墙南段", note: "", lnglat: [112.463500, 23.046500] },
-            { name: "味道王小食店", note: "广式茶点，猪杂粥，韭菜猪肉饺子", lnglat: [112.461354, 23.046976]，image: "https://cdn.nlark.com/yuque/0/2026/jpeg/28536210/1777029765187-a2bf1989-c825-4036-a6a2-9e9354d45d70.jpeg" },
+            { name: "味道王小食店", note: "广式茶点，猪杂粥，韭菜猪肉饺子", lnglat: [112.461354, 23.046976] },
             { name: "丽谯楼", note: "", lnglat: [112.459150, 23.047198] },
             { name: "披云楼", note: "", lnglat: [112.459263, 23.049094], image: "https://cdn.nlark.com/yuque/0/2026/jpeg/28536210/1777029769152-b8795bbe-1f49-4088-aefa-3e91676f7cf5.jpeg" }
         ];
@@ -288,12 +288,9 @@
         // 全局复位视图方法
         window.resetMap = function() {
             window.closeInfoWindow(); // 复位时先收起对话框
-            // 调用高德接口，将所有元素刚好完全囊括进手机屏幕
-            const overlays = map.getAllOverlays('Marker');
+            // 使用全局路线直接作为基准视野，这样无论图标是否全部掉落完，都能完美圈在手机屏幕中央
             if (window.globalRouteLine) {
-                map.setFitView([window.globalRouteLine, ...overlays], false, [60, 40, 60, 40]);
-            } else {
-                map.setFitView(overlays, false, [60, 40, 60, 40]);
+                map.setFitView([window.globalRouteLine], false, [60, 40, 60, 40]);
             }
         }
 
@@ -397,10 +394,10 @@
                 window.closeInfoWindow();
             });
 
-            // 初始化后复位中心视角
+            // 初始化后延时让所有图标掉落完毕，再复位中心视角
             setTimeout(() => {
                  window.resetMap();
-            }, 500);
+            }, 1500);
         });
     </script>
 </body>
