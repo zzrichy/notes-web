@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="referrer" content="no-referrer">
     <title>girls' party</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
     <script>
@@ -38,6 +37,43 @@
             top: 0;
             left: 0;
             z-index: 1;
+        }
+
+        /* 复位按钮样式 */
+        .reset-btn {
+            position: absolute;
+            bottom: 30px;
+            right: 20px;
+            width: 48px;
+            height: 48px;
+            background: rgba(253, 251, 247, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 2px solid #8b3a3a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(62, 39, 35, 0.2);
+            z-index: 500;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        }
+        
+        .reset-btn:active {
+            transform: scale(0.85) rotate(-45deg);
+        }
+        
+        .reset-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* 呼吸发光动画 */
+        @keyframes breatheGlow {
+            0% { box-shadow: 0 0 5px rgba(212, 175, 55, 0.3), 0 4px 10px rgba(62, 39, 35, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(212, 175, 55, 1), 0 4px 10px rgba(62, 39, 35, 0.2); }
+            100% { box-shadow: 0 0 5px rgba(212, 175, 55, 0.3), 0 4px 10px rgba(62, 39, 35, 0.2); }
         }
 
         /* 移动端地图 Marker 按键化 */
@@ -87,6 +123,7 @@
             border-color: #8b3a3a;
             transform: scale(1.1);
             z-index: 999 !important;
+            animation: breatheGlow 1.8s infinite ease-in-out; /* 应用发光动画 */
         }
 
         .custom-map-marker.active::after {
@@ -208,6 +245,11 @@
 <body>
 
     <div id="map"></div>
+    
+    <!-- 一键复位视图按钮 -->
+    <div class="reset-btn" onclick="window.resetMap()">
+        <svg viewBox="0 0 24 24"><path d="M12 2L12 6M12 22L12 18M2 12L6 12M22 12L18 12M12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8Z" stroke="#8b3a3a" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+    </div>
 
     <script>
         const routeData = [
@@ -217,9 +259,9 @@
             { name: "古城墙", note: "", lnglat: [112.461428, 23.048992] },
             { name: "肇庆博物馆", note: "去上课的", lnglat: [112.464826, 23.048075] },
             { name: "骑楼街", note: "有臭豆腐、牛杂，一条有点特色的美食街", lnglat: [112.467551, 23.045939], image: "https://cdn.nlark.com/yuque/0/2026/jpeg/28536210/1777029760432-66279268-93ba-4526-a70c-8d40ba75bd6d.jpeg" },
-            { name: "西江", note: "看日落", lnglat: [112.466000, 23.042500], image: "https://cdn.nlark.com/yuque/0/2026/jpeg/28536210/1777029765187-a2bf1989-c825-4036-a6a2-9e9354d45d70.jpeg" }, // 在骑楼街之后插入，南下直达江边观景
+            { name: "西江", note: "看日落", lnglat: [112.466000, 23.042500],  }, // 在骑楼街之后插入，南下直达江边观景
             { name: "古城墙南段", note: "", lnglat: [112.463500, 23.046500] },
-            { name: "味道王小食店", note: "广式茶点，猪杂粥，韭菜猪肉饺子", lnglat: [112.461354, 23.046976] },
+            { name: "味道王小食店", note: "广式茶点，猪杂粥，韭菜猪肉饺子", lnglat: [112.461354, 23.046976]，image: "https://cdn.nlark.com/yuque/0/2026/jpeg/28536210/1777029765187-a2bf1989-c825-4036-a6a2-9e9354d45d70.jpeg" },
             { name: "丽谯楼", note: "", lnglat: [112.459150, 23.047198] },
             { name: "披云楼", note: "", lnglat: [112.459263, 23.049094], image: "https://cdn.nlark.com/yuque/0/2026/jpeg/28536210/1777029769152-b8795bbe-1f49-4088-aefa-3e91676f7cf5.jpeg" }
         ];
@@ -243,6 +285,18 @@
             }
         }
 
+        // 全局复位视图方法
+        window.resetMap = function() {
+            window.closeInfoWindow(); // 复位时先收起对话框
+            // 调用高德接口，将所有元素刚好完全囊括进手机屏幕
+            const overlays = map.getAllOverlays('Marker');
+            if (window.globalRouteLine) {
+                map.setFitView([window.globalRouteLine, ...overlays], false, [60, 40, 60, 40]);
+            } else {
+                map.setFitView(overlays, false, [60, 40, 60, 40]);
+            }
+        }
+
         map.on('complete', function () {
             const pathLngLats = routeData.map(item => item.lnglat);
 
@@ -253,7 +307,7 @@
                 borderWeight: 2,
                 strokeColor: "#c28135",
                 strokeOpacity: 0.9,
-                strokeWeight: 5, // 移动端稍微细一点更清爽
+                strokeWeight: 5, 
                 strokeStyle: "solid",
                 lineJoin: 'round',
                 lineCap: 'round',
@@ -262,6 +316,7 @@
                 zIndex: 50,
             });
             map.add(routeLine);
+            window.globalRouteLine = routeLine; // 绑定到全局供复位按钮使用
 
             const cityWallPath = [
                 [112.4592, 23.0495], [112.4620, 23.0492],
@@ -273,7 +328,7 @@
             const wallPolygon = new AMap.Polygon({
                 path: cityWallPath,
                 strokeColor: "#8b3a3a",
-                strokeWeight: 2, // 移动端线条稍细
+                strokeWeight: 2, 
                 strokeOpacity: 0.8,
                 fillOpacity: 0.08,
                 fillColor: '#8b3a3a',
@@ -282,12 +337,12 @@
             });
             map.add(wallPolygon);
             
-            // 初始化复用同一个信息窗体 (InfoWindow)
             const infoWindow = new AMap.InfoWindow({
-                isCustom: true, // 使用自定义 HTML
-                offset: new AMap.Pixel(0, -35) // 让信息框出现在图标正上方（不遮挡）
+                isCustom: true, 
+                offset: new AMap.Pixel(0, -35) 
             });
 
+            // 给标记的渲染加一点极其酷炫的特效: 依序从天上掉下来
             routeData.forEach((item, index) => {
                 const markerContent = `
                     <div class="custom-map-marker" id="marker-${index}">
@@ -299,52 +354,53 @@
                 const marker = new AMap.Marker({
                     position: item.lnglat,
                     content: markerContent,
-                    offset: new AMap.Pixel(-30, -15), // 图标本身中心偏移定位
-                    zIndex: 100 + index
+                    offset: new AMap.Pixel(-30, -15),
+                    zIndex: 100 + index,
+                    animation: 'AMAP_ANIMATION_DROP' // 开局时自带坠落动画
                 });
 
                 marker.on('click', () => {
-                    // 取消之前激活的图标
                     if (activeMarkerDom) {
                         activeMarkerDom.classList.remove('active');
                     }
 
-                    // 激活当前点击的图标
                     const currentDom = document.getElementById(`marker-${index}`);
                     if (currentDom) {
-                        currentDom.classList.add('active');
+                        currentDom.classList.add('active'); // CSS里包含了金色呼吸发光的动画
                         activeMarkerDom = currentDom;
                     }
 
-                    // 构建自定义弹窗的内部 HTML (包含标题文本图片)
                     const infoHtml = `
                     <div class="custom-info-window">
                         <div class="info-close-btn" onclick="window.closeInfoWindow()">✕</div>
                         <div class="info-title">NO.${index + 1} &nbsp;${item.name}</div>
                         ${item.note ? `<div class="info-note">${item.note}</div>` : ''}
-                        ${item.image ? `<img class="info-image" src="${item.image}" alt="景点图片" />` : ''}
+                        ${item.image ? `<img class="info-image" src="${item.image}" alt="景点图片" referrerpolicy="no-referrer" />` : ''}
                     </div>
                     `;
 
-                    // 高德原生特性：在点位正上方弹起对话框
                     infoWindow.setContent(infoHtml);
                     infoWindow.open(map, item.lnglat);
 
-                    // 视线依然平滑居中且微调，把上方预留给图文框
                     const targetLng = item.lnglat[0];
                     const targetLat = item.lnglat[1] + (item.image ? 0.0015 : 0.0008); 
                     map.panTo([targetLng, targetLat]);
                 });
 
-                map.add(marker);
+                // 设置几百毫秒的动态延迟加载，让图标们一个接一个地砸在地平线上
+                setTimeout(() => {
+                    map.add(marker);
+                }, index * 100 + 300);
             });
 
-            // 点击地图空白处，原生接口即可清空窗体
             map.on('click', () => {
                 window.closeInfoWindow();
             });
 
-            map.setFitView([routeLine, ...map.getAllOverlays('Marker')], false, [40, 40, 40, 40]);
+            // 初始化后复位中心视角
+            setTimeout(() => {
+                 window.resetMap();
+            }, 500);
         });
     </script>
 </body>
