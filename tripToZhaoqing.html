@@ -109,6 +109,8 @@
             bottom: -150%;
             left: 0;
             width: 100%;
+            max-height: 85%;
+            overflow-y: auto;
             background: rgba(253, 251, 247, 0.95);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -118,6 +120,10 @@
             transition: bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             z-index: 1000;
             border-top: 2px solid #8b3a3a;
+        }
+
+        .bottom-card::-webkit-scrollbar {
+            display: none;
         }
 
         .bottom-card.open {
@@ -162,6 +168,16 @@
             border-left: 4px solid #c28135;
         }
 
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-top: 16px;
+            display: none;
+            border: 2px solid #d4c4a8;
+        }
+
         .close-btn {
             position: absolute;
             top: 20px;
@@ -176,6 +192,7 @@
             font-size: 14px;
             color: #8b3a3a;
             font-weight: bold;
+            cursor: pointer;
         }
 
         /* 隐藏高德地图默认放大缩小控件（移动端手势即可） */
@@ -197,22 +214,23 @@
             <span id="cardName">景点名称</span>
             <span class="card-index" id="cardIndex">#1</span>
         </div>
-        <div class="card-note" id="cardNote">这里是备注文案这里是备注文案这里是备注文案</div>
+        <div class="card-note" id="cardNote">这里是备注文案</div>
+        <img id="cardImage" class="card-image" src="" alt="景点图片" />
     </div>
 
     <script>
         const routeData = [
-            { name: "蔃女食馆", note: "排队比较久的话可以放弃", lnglat: [112.477606, 23.047345] },
-            { name: "肥姨鱼蛋", note: "肥姨鱼蛋要双拼，但是不要抱太大期待，预期是网红口味", lnglat: [112.464853, 23.049613] },
-            { name: "朝天门", note: "从这里上城墙", lnglat: [112.464346, 23.048849] },
+            { name: "蔃女食馆", note: "排队比较久的话可以放弃", lnglat: [112.477606, 23.047345], image: "https://cdn.nlark.com/yuque/0/2026/jpeg/28536210/1777029744054-b5130702-850e-4746-9108-265af6187c7f.jpeg" },
+            { name: "肥姨鱼蛋", note: "肥姨鱼蛋要双拼，但是不要抱太大期待，预期是网红口味", lnglat: [112.464853, 23.049613], image: "https://cdn.nlark.com/yuque/0/2026/jpeg/28536210/1777029751190-82385440-a20a-4e8b-b17b-cc7018d1459b.jpeg" },
+            { name: "朝天门", note: "从这里上城墙", lnglat: [112.464346, 23.048849], image: "https://cdn.nlark.com/yuque/0/2026/jpeg/28536210/1777029755952-e417593f-6bf6-4f71-b7f6-44f8ccde85e1.jpeg" },
             { name: "古城墙", note: "", lnglat: [112.461428, 23.048992] },
             { name: "肇庆博物馆", note: "去上课的", lnglat: [112.464826, 23.048075] },
-            { name: "骑楼街", note: "有臭豆腐、牛杂，一条有点特色的美食街", lnglat: [112.467551, 23.045939] },
-            { name: "西江", note: "看日落", lnglat: [112.466000, 23.042500] },
+            { name: "骑楼街", note: "有臭豆腐、牛杂，一条有点特色的美食街", lnglat: [112.467551, 23.045939], image: "https://cdn.nlark.com/yuque/0/2026/jpeg/28536210/1777029760432-66279268-93ba-4526-a70c-8d40ba75bd6d.jpeg" },
+            { name: "西江", note: "看日落", lnglat: [112.466000, 23.042500], image: "https://cdn.nlark.com/yuque/0/2026/jpeg/28536210/1777029765187-a2bf1989-c825-4036-a6a2-9e9354d45d70.jpeg" }, // 在骑楼街之后插入，南下直达江边观景
             { name: "古城墙南段", note: "", lnglat: [112.463500, 23.046500] },
             { name: "味道王小食店", note: "广式茶点，猪杂粥，韭菜猪肉饺子", lnglat: [112.461354, 23.046976] },
             { name: "丽谯楼", note: "", lnglat: [112.459150, 23.047198] },
-            { name: "披云楼", note: "", lnglat: [112.459263, 23.049094] }
+            { name: "披云楼", note: "", lnglat: [112.459263, 23.049094], image: "https://cdn.nlark.com/yuque/0/2026/jpeg/28536210/1777029769152-b8795bbe-1f49-4088-aefa-3e91676f7cf5.jpeg" }
         ];
 
         const map = new AMap.Map('map', {
@@ -224,13 +242,14 @@
         });
 
         let activeMarkerDom = null;
+        let isMarkerClickedFlag = false; // 用于防止点击穿透导致的闪退bug
 
         function closeCard() {
             document.getElementById('bottomCard').classList.remove('open');
             if (activeMarkerDom) {
                 activeMarkerDom.classList.remove('active');
+                activeMarkerDom = null;
             }
-            // 恢复视图居中（可选）
         }
 
         map.on('complete', function () {
@@ -273,8 +292,6 @@
             map.add(wallPolygon);
 
             routeData.forEach((item, index) => {
-                // 移动端不再直接在地图上显示又长又占位置的文字了
-                // 只显示序号和地名
                 const markerContent = `
                     <div class="custom-map-marker" id="marker-${index}">
                         <div class="marker-icon"></div>
@@ -290,6 +307,10 @@
                 });
 
                 marker.on('click', () => {
+                    // 防止冒泡到 map.click 导致刚打开就被关掉 (闪退)
+                    isMarkerClickedFlag = true;
+                    setTimeout(() => { isMarkerClickedFlag = false; }, 300);
+
                     // 取消之前激活的图标
                     if (activeMarkerDom) {
                         activeMarkerDom.classList.remove('active');
@@ -303,7 +324,6 @@
                     }
 
                     // 移动端核心：将地图中心平滑移到该点稍上方的位置（留出下面卡片的空间）
-                    // 简单的偏移计算
                     const targetLng = item.lnglat[0];
                     const targetLat = item.lnglat[1] + 0.0015; // 纬度上移，让目标点在屏幕上半部分
                     map.panTo([targetLng, targetLat]);
@@ -312,6 +332,7 @@
                     document.getElementById('cardName').innerText = item.name;
                     document.getElementById('cardIndex').innerText = `NO. ${index + 1}`;
 
+                    // 注释判断
                     const noteEl = document.getElementById('cardNote');
                     if (item.note) {
                         noteEl.style.display = 'block';
@@ -320,15 +341,28 @@
                         noteEl.style.display = 'none';
                     }
 
+                    // 图片判断
+                    const imageEl = document.getElementById('cardImage');
+                    if (item.image) {
+                        imageEl.style.display = 'block';
+                        imageEl.src = item.image;
+                    } else {
+                        imageEl.style.display = 'none';
+                        imageEl.src = '';
+                    }
+
+                    // 最后升起卡片
                     document.getElementById('bottomCard').classList.add('open');
                 });
 
                 map.add(marker);
             });
 
-            // 点击地图空白处关闭卡片
+            // 点击地图空白处关闭卡片 (加上条件拦截，避免点击 Marker 时的事件穿透导致闪退)
             map.on('click', () => {
-                closeCard();
+                if (!isMarkerClickedFlag) {
+                    closeCard();
+                }
             });
 
             map.setFitView([routeLine, ...map.getAllOverlays('Marker')], false, [40, 40, 40, 40]);
