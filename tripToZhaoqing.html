@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="referrer" content="no-referrer">
     <title>girls' party</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
     <script>
@@ -103,85 +104,47 @@
             background: #8b3a3a;
         }
 
-        /* 移动端底部信息卡片 (Drawer) */
-        .bottom-card {
-            position: absolute;
-            bottom: -150%;
-            left: 0;
-            width: 100%;
-            max-height: 85%;
-            overflow-y: auto;
-            background: rgba(253, 251, 247, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px 20px 0 0;
-            padding: 24px 20px 32px 20px;
-            box-shadow: 0 -5px 25px rgba(62, 39, 35, 0.2);
-            transition: bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 1000;
-            border-top: 2px solid #8b3a3a;
-        }
-
-        .bottom-card::-webkit-scrollbar {
-            display: none;
-        }
-
-        .bottom-card.open {
-            bottom: 0;
-        }
-
-        .card-drag-handle {
-            width: 40px;
-            height: 4px;
-            background: #d4c4a8;
-            border-radius: 2px;
-            margin: 0 auto 16px auto;
-        }
-
-        .card-title {
-            font-size: 20px;
-            color: #8b3a3a;
-            font-weight: 700;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .card-index {
-            font-size: 14px;
-            background: #d4af37;
-            color: #fff;
-            padding: 2px 8px;
+        /* 悬浮气泡框样式 (InfoWindow) */
+        .custom-info-window {
+            background: rgba(253, 251, 247, 0.98);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 2px solid #8b3a3a;
             border-radius: 12px;
-            font-weight: 600;
+            padding: 16px;
+            width: 260px; /* 适合移动端的对话框宽度 */
+            box-shadow: 0 10px 25px rgba(62, 39, 35, 0.25);
+            position: relative;
+            transform: translateY(-5px); /* 微调位置，避免遮挡地标 */
         }
 
-        .card-note {
-            font-size: 15px;
-            color: #5d4037;
-            line-height: 1.6;
-            margin-top: 12px;
-            background: rgba(212, 196, 168, 0.2);
-            padding: 12px 16px;
-            border-radius: 8px;
-            border-left: 4px solid #c28135;
-        }
-
-        .card-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin-top: 16px;
-            display: none;
-            border: 2px solid #d4c4a8;
-        }
-
-        .close-btn {
+        .custom-info-window::after {
+            content: '';
             position: absolute;
-            top: 20px;
-            right: 20px;
+            bottom: -11px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid #8b3a3a;
+        }
+
+        .custom-info-window::before {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid rgba(253, 251, 247, 0.98);
+            z-index: 1;
+        }
+
+        .info-close-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
             width: 24px;
             height: 24px;
             background: #eeeae0;
@@ -189,13 +152,53 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            font-size: 12px;
             color: #8b3a3a;
             font-weight: bold;
             cursor: pointer;
+            z-index: 2;
         }
 
-        /* 隐藏高德地图默认放大缩小控件（移动端手势即可） */
+        .info-title {
+            font-size: 18px;
+            color: #8b3a3a;
+            font-weight: 700;
+            margin-bottom: 8px;
+            padding-right: 20px;
+        }
+
+        .info-note {
+            font-size: 13px;
+            color: #5d4037;
+            line-height: 1.5;
+            background: rgba(212, 196, 168, 0.2);
+            padding: 8px 10px;
+            border-radius: 6px;
+            border-left: 3px solid #c28135;
+            margin-top: 8px;
+            max-height: 120px;
+            overflow-y: auto;
+        }
+
+        .info-image {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-top: 12px;
+            border: 1px solid #d4c4a8;
+        }
+
+        /* 自定义滚动条风格 */
+        .info-note::-webkit-scrollbar {
+            width: 4px;
+        }
+        .info-note::-webkit-scrollbar-thumb {
+            background-color: #d4c4a8;
+            border-radius: 2px;
+        }
+
+        /* 隐藏高德地图默认放大缩小控件 */
         .amap-controls {
             display: none !important;
         }
@@ -205,18 +208,6 @@
 <body>
 
     <div id="map"></div>
-
-    <!-- 底部详情卡片 -->
-    <div class="bottom-card" id="bottomCard">
-        <div class="card-drag-handle"></div>
-        <div class="close-btn" onclick="closeCard()">✕</div>
-        <div class="card-title">
-            <span id="cardName">景点名称</span>
-            <span class="card-index" id="cardIndex">#1</span>
-        </div>
-        <div class="card-note" id="cardNote">这里是备注文案</div>
-        <img id="cardImage" class="card-image" src="" alt="景点图片" />
-    </div>
 
     <script>
         const routeData = [
@@ -242,10 +233,10 @@
         });
 
         let activeMarkerDom = null;
-        let isMarkerClickedFlag = false; // 用于防止点击穿透导致的闪退bug
-
-        function closeCard() {
-            document.getElementById('bottomCard').classList.remove('open');
+        
+        // 全局关闭浮窗方法
+        window.closeInfoWindow = function() {
+            map.clearInfoWindow();
             if (activeMarkerDom) {
                 activeMarkerDom.classList.remove('active');
                 activeMarkerDom = null;
@@ -290,6 +281,12 @@
                 strokeStyle: 'dashed'
             });
             map.add(wallPolygon);
+            
+            // 初始化复用同一个信息窗体 (InfoWindow)
+            const infoWindow = new AMap.InfoWindow({
+                isCustom: true, // 使用自定义 HTML
+                offset: new AMap.Pixel(0, -35) // 让信息框出现在图标正上方（不遮挡）
+            });
 
             routeData.forEach((item, index) => {
                 const markerContent = `
@@ -302,15 +299,11 @@
                 const marker = new AMap.Marker({
                     position: item.lnglat,
                     content: markerContent,
-                    offset: new AMap.Pixel(-30, -30), // 偏移调整适应短文本
+                    offset: new AMap.Pixel(-30, -15), // 图标本身中心偏移定位
                     zIndex: 100 + index
                 });
 
                 marker.on('click', () => {
-                    // 防止冒泡到 map.click 导致刚打开就被关掉 (闪退)
-                    isMarkerClickedFlag = true;
-                    setTimeout(() => { isMarkerClickedFlag = false; }, 300);
-
                     // 取消之前激活的图标
                     if (activeMarkerDom) {
                         activeMarkerDom.classList.remove('active');
@@ -323,46 +316,32 @@
                         activeMarkerDom = currentDom;
                     }
 
-                    // 移动端核心：将地图中心平滑移到该点稍上方的位置（留出下面卡片的空间）
+                    // 构建自定义弹窗的内部 HTML (包含标题文本图片)
+                    const infoHtml = `
+                    <div class="custom-info-window">
+                        <div class="info-close-btn" onclick="window.closeInfoWindow()">✕</div>
+                        <div class="info-title">NO.${index + 1} &nbsp;${item.name}</div>
+                        ${item.note ? `<div class="info-note">${item.note}</div>` : ''}
+                        ${item.image ? `<img class="info-image" src="${item.image}" alt="景点图片" />` : ''}
+                    </div>
+                    `;
+
+                    // 高德原生特性：在点位正上方弹起对话框
+                    infoWindow.setContent(infoHtml);
+                    infoWindow.open(map, item.lnglat);
+
+                    // 视线依然平滑居中且微调，把上方预留给图文框
                     const targetLng = item.lnglat[0];
-                    const targetLat = item.lnglat[1] + 0.0015; // 纬度上移，让目标点在屏幕上半部分
+                    const targetLat = item.lnglat[1] + (item.image ? 0.0015 : 0.0008); 
                     map.panTo([targetLng, targetLat]);
-
-                    // 弹出底部信息面板
-                    document.getElementById('cardName').innerText = item.name;
-                    document.getElementById('cardIndex').innerText = `NO. ${index + 1}`;
-
-                    // 注释判断
-                    const noteEl = document.getElementById('cardNote');
-                    if (item.note) {
-                        noteEl.style.display = 'block';
-                        noteEl.innerText = item.note;
-                    } else {
-                        noteEl.style.display = 'none';
-                    }
-
-                    // 图片判断
-                    const imageEl = document.getElementById('cardImage');
-                    if (item.image) {
-                        imageEl.style.display = 'block';
-                        imageEl.src = item.image;
-                    } else {
-                        imageEl.style.display = 'none';
-                        imageEl.src = '';
-                    }
-
-                    // 最后升起卡片
-                    document.getElementById('bottomCard').classList.add('open');
                 });
 
                 map.add(marker);
             });
 
-            // 点击地图空白处关闭卡片 (加上条件拦截，避免点击 Marker 时的事件穿透导致闪退)
+            // 点击地图空白处，原生接口即可清空窗体
             map.on('click', () => {
-                if (!isMarkerClickedFlag) {
-                    closeCard();
-                }
+                window.closeInfoWindow();
             });
 
             map.setFitView([routeLine, ...map.getAllOverlays('Marker')], false, [40, 40, 40, 40]);
